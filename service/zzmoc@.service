@@ -1,0 +1,14 @@
+[Unit]
+Description=MOC server
+ConditionPathExists=/usr/bin/mocp
+After=network.target sound.target ssh.service
+
+[Service]
+RemainAfterExit=yes
+User=%I
+ExecStart=ssh pi@192.168.0.203 "/usr/bin/mocp -S -O ALSAStutterDefeat=yes"
+ExecStop=/usr/bin/mocp -x
+WorkingDirectory=/home/%I/
+
+[Install]
+WantedBy=multi-user.target
